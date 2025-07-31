@@ -1,0 +1,7 @@
+# 忽略 Python 虚拟环境目录
+myvenv/
+
+# 数据库文件
+*.db
+*.sql
+数据库命令.txt
