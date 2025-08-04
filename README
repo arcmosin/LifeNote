@@ -1,4 +1,24 @@
 创建环境: python -m venv .venv
-安装库： pip install -r requirements.txt
 启动环境：.\.venv\Scripts\activate
+安装库： pip install -r requirements.txt
+
 启动命令：uvicorn src.main:app --reload --port 8040
+
+git push -u origin main
+
+
+构建和启动
+
+# 1. 构建服务（初次使用或代码更新时）
+docker-compose build
+
+# 2. 启动服务
+docker-compose up -d
+
+常用命令
+
+# 查看日志
+docker-compose logs -f
+
+# 停止并移除容器
+docker-compose down

@@ -20,7 +20,7 @@ export default defineConfig({
     base:'.',
   },
   base: './',
-  build:{
-    outDir:'D:/web/life-note',
-  }
+  // build:{
+  //   outDir:'D:/web/life-note',
+  // }
 })

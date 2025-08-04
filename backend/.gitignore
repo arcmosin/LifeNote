@@ -1,5 +1,5 @@
 # 忽略 Python 虚拟环境目录
-myvenv/
+.venv/
 
 # 数据库文件
 *.db
