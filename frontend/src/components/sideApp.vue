@@ -48,7 +48,8 @@ import { useStore } from '@/utils/store'
 import bus from 'vue3-eventbus'
 
 // 获取全局 $config
-const { $config } = getCurrentInstance().appContext.config.globalProperties;
+// const { $config } = getCurrentInstance().appContext.config.globalProperties;
+import { getApiBaseUrl } from '@/utils/config';
 
 const tags=ref([])
 
@@ -82,7 +83,7 @@ const toggleTag = (tag, checked) => {
 // 获取所有标签
 const fetchTags = async () => {
   try {
-    const response = await axios.get(`${$config.API_BASE_URL}/tags/`)
+    const response = await axios.get(`${getApiBaseUrl()}/tags/`)
     tags.value = response.data
   } catch (error) {
     console.error('获取标签失败:', error)
@@ -104,7 +105,7 @@ bus.on('itemTags', (data) => {
 const handleSubmit = async () => {
   const sendIDs = store.tagList.map(item => item.id)
   try {
-    await axios.put(`${$config.API_BASE_URL}/items/${store.waitTagID}/tags`, 
+    await axios.put(`${getApiBaseUrl()}/items/${store.waitTagID}/tags`, 
       sendIDs,
     )
     ElMessage({

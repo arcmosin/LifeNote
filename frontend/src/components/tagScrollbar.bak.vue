@@ -75,7 +75,8 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { useStore } from '@/utils/store'
 
 // 获取全局 $config
-const { $config } = getCurrentInstance().appContext.config.globalProperties;
+// const { $config } = getCurrentInstance().appContext.config.globalProperties;
+import { getApiBaseUrl } from '@/utils/config';
 
 const tags=ref([])
 const inputVisible = ref(false)
@@ -102,7 +103,7 @@ const setEditInputRef = (el, index) => {
 // 获取所有标签
 const fetchTags = async () => {
   try {
-    const response = await axios.get(`${$config.API_BASE_URL}/tags/`)
+    const response = await axios.get(`${getApiBaseUrl()}/tags/`)
     console.log('response',response)
     tags.value = response.data
   } catch (error) {
@@ -128,7 +129,7 @@ const handleClose = async (id) => {
         type: 'warning',
       }
     );
-    const response = await axios.delete(`${$config.API_BASE_URL}/tags/${id}`);
+    const response = await axios.delete(`${getApiBaseUrl()}/tags/${id}`);
     tags.value = tags.value.filter(tag => tag.id !== id);
     await fetchTags();
   } catch (error){
@@ -147,7 +148,7 @@ const handleClose = async (id) => {
 const handleInputConfirm = async () => {
   if (inputValue.value) {
     try {
-      const response = await axios.post(`${$config.API_BASE_URL}/tags/`,{
+      const response = await axios.post(`${getApiBaseUrl()}/tags/`,{
 
         name: inputValue.value
       })
@@ -189,7 +190,7 @@ const handleDoubleClick=(tag)=> {
 
 const handleEditConfirm = async (id) => {
   try {
-    await axios.put(`${$config.API_BASE_URL}/tags/${id}`,{
+    await axios.put(`${getApiBaseUrl()}/tags/${id}`,{
       name: editValue.value
     })
     const index = tags.value.findIndex(tag => tag.id === id)

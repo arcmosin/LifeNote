@@ -114,7 +114,8 @@ import { useStore } from '@/utils/store'
 import bus from 'vue3-eventbus'
 
 // 获取全局 $config
-const { $config } = getCurrentInstance().appContext.config.globalProperties;
+// const { $config } = getCurrentInstance().appContext.config.globalProperties;
+import { getApiBaseUrl } from '@/utils/config';
 // const emit = defineEmits(['creat-card']);
 
 const cards = ref([])
@@ -154,10 +155,10 @@ const handleClosed = () => {
 const fetchCards = async () => {
   try {
     if(store.tagBarValue != null){
-      const response = await axios.get(`${$config.API_BASE_URL}/tags/${store.tagBarValue}/items/`)
+      const response = await axios.get(`${getApiBaseUrl()}/tags/${store.tagBarValue}/items/`)
       cards.value = response.data
     }else{
-      const response = await axios.get(`${$config.API_BASE_URL}/items/`)
+      const response = await axios.get(`${getApiBaseUrl()}/items/`)
       cards.value = response.data
     }
 
@@ -180,7 +181,7 @@ const openDialog = (card) => {
 const handleSave = async () => {
   if (selectedCard.value.id) {
     try {
-      await axios.put(`${$config.API_BASE_URL}/items/${selectedCard.value.id}`, {
+      await axios.put(`${getApiBaseUrl()}/items/${selectedCard.value.id}`, {
         title: dialogTitle.value,
         content: textarea.value
       })
@@ -220,7 +221,7 @@ const handleDelete = async (id) => {
     );
     
     // 用户确认删除后执行的操作
-    await axios.delete(`${$config.API_BASE_URL}/items/${id}`);
+    await axios.delete(`${getApiBaseUrl()}/items/${id}`);
     
     // 删除本地数据
     cards.value = cards.value.filter(card => card.id !== id);
@@ -255,7 +256,7 @@ const createNewCard = () => {
 const createNewCardPush = async () => {
 
   try {
-    const response = await axios.post(`${$config.API_BASE_URL}/items/`, {
+    const response = await axios.post(`${getApiBaseUrl()}/items/`, {
       title: dialogTitle.value,
       content: textarea.value,
       // created_at: new Date().toISOString().split('T')[0]
@@ -295,7 +296,7 @@ const tagOptions = ref([])
 
 const fetchTagsByItem = async (value) => {
   try {
-    const response = await axios.get(`${$config.API_BASE_URL}/items/${value}/tags/`)
+    const response = await axios.get(`${getApiBaseUrl()}/items/${value}/tags/`)
     store.updateTagList(response.data)
     bus.emit('itemTags', { id: value, tags: response.data });
     editTagCardID.value = value;
