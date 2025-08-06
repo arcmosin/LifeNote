@@ -116,7 +116,6 @@ import bus from 'vue3-eventbus'
 // 获取全局 $config
 // const { $config } = getCurrentInstance().appContext.config.globalProperties;
 import { getApiBaseUrl } from '@/utils/config';
-// const emit = defineEmits(['creat-card']);
 
 const cards = ref([])
 const dialogVisible = ref(false)
