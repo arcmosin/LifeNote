@@ -19,8 +19,5 @@ export default defineConfig({
     port: 5178,
     base:'.',
   },
-  base: './',
-  build:{
-    outDir:'D:/web/vue/life-note',
-  }
+  base: './'
 })
