@@ -4,18 +4,20 @@ services:
   frontend:
     build:
       context: ./frontend
+      args:
+        - VITE_API_BASE_URL=http://your_vps_ip:8144
     ports:
-      - "${FRONTEND_PORT}:5178"
+      - "5180:5178"
     container_name: lifenote-frontend
     environment:
-      - NGINX_PORT=${FRONTEND_PORT}
+      - NGINX_PORT=5180
     restart: unless-stopped
 
   backend:
     build:
       context: ./backend
     ports:
-      - "${BACKEND_PORT}:8040"
+      - "8144:8040"
     container_name: lifenote-backend
     environment:
       - PYTHONUNBUFFERED=1
